@@ -7,12 +7,17 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem deathEffect;
-    
+    [SerializeField] private GameObject projectilePrefab;
+
     private MeshRenderer _renderer;
+    Vector3 direction = Vector3.back;
 
     private void Awake()
     {
         this._renderer = gameObject.GetComponent<MeshRenderer>();
+        var projectile = Instantiate(this.projectilePrefab);
+        projectile.transform.position = transform.position;
+        projectile.GetComponent<EnemyProjectile>().Init(direction);
     }
 
     // This method listens to HealthManager "onHealthChanged" events. The actual

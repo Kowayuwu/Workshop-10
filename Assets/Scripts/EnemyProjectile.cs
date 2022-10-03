@@ -1,21 +1,20 @@
-﻿// COMP30019 - Graphics and Interaction
-// (c) University of Melbourne, 2022
-
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour
+public class EnemyProjectile : MonoBehaviour
 {
     [SerializeField] private Vector3 velocity;
     [SerializeField] private ParticleSystem collisionParticles;
 
     [SerializeField] private int damageAmount = 50;
     [SerializeField] private string tagToDamage;
-
+    // Start is called before the first frame update
     public void Init(Vector3 direction)
     {
-        velocity = direction.normalized*25;
+        velocity = direction.normalized * 25;
     }
-  
+
 
     private void Update()
     {
@@ -30,7 +29,7 @@ public class ProjectileController : MonoBehaviour
             // HealthManager component is attached to the respective object.
             var healthManager = col.gameObject.GetComponent<HealthManager>();
             healthManager.ApplyDamage(this.damageAmount);
-            
+
             // Create collision particles in opposite direction to movement.
             var particles = Instantiate(this.collisionParticles);
             particles.transform.position = transform.position;
